@@ -1,11 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My First GitHub Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLBB Skin List Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .card h3 {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello GitHub Pages 🚀</h1>
-  <p>ဒီစာမျက်နှာကို မင်း GitHub ကနေ Live Website အဖြစ်ကြည့်နေတယ်</p>
+  <h1>MLBB Skin List (Demo)</h1>
+  <div class="grid">
+    <div class="card">
+      <img src="https://i.ibb.co/sRQJfPx/aldous.jpg" alt="Aldous Skin">
+      <h3>Aldous - Realm Watcher</h3>
+    </div>
+    <div class="card">
+      <img src="https://i.ibb.co/fN0tLwY/alucard.jpg" alt="Alucard Skin">
+      <h3>Alucard - Lightborn</h3>
+    </div>
+    <div class="card">
+      <img src="https://i.ibb.co/Tvt7HwD/layla.jpg" alt="Layla Skin">
+      <h3>Layla - Blue Specter</h3>
+    </div>
+    <div class="card">
+      <img src="https://i.ibb.co/Y8Kk7TJ/moskov.jpg" alt="Moskov Skin">
+      <h3>Moskov - Twilight Dragon</h3>
+    </div>
+  </div>
 </body>
 </html>
