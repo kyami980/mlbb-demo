@@ -1,66 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MLBB Skin List Demo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MLBB Skin List — Training Demo</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-    }
-    .card {
-      background: #1e293b;
-      padding: 10px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.05);
-    }
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    .card h3 {
-      margin-top: 10px;
-      font-size: 16px;
-    }
+    body{font-family:Arial;background:#0f172a;color:#fff;padding:20px}
+    h1{text-align:center;margin-bottom:20px}
+    table{width:100%;border-collapse:collapse;background:#1e293b;border-radius:8px;overflow:hidden}
+    th,td{padding:12px;text-align:center;border-bottom:1px solid #334155}
+    th{background:#0ea5e9;color:#fff}
+    tr:hover{background:#334155}
+    img{width:100px;border-radius:8px}
+    button.claim{padding:8px 12px;border-radius:6px;border:none;cursor:pointer;background:#06b6d4;color:#000}
   </style>
 </head>
 <body>
-  <h1>MLBB Skin List (Demo)</h1>
-  <div class="grid">
-    <div class="card">
-      <img src="https://i.ibb.co/sRQJfPx/aldous.jpg" alt="Aldous Skin">
-      <h3>Aldous - Realm Watcher</h3>
-    </div>
-    <div class="card">
-      <img src="https://i.ibb.co/fN0tLwY/alucard.jpg" alt="Alucard Skin">
-      <h3>Alucard - Lightborn</h3>
-    </div>
-    <div class="card">
-      <img src="https://i.ibb.co/Tvt7HwD/layla.jpg" alt="Layla Skin">
-      <h3>Layla - Blue Specter</h3>
-    </div>
-    <div class="card">
-      <img src="https://i.ibb.co/Y8Kk7TJ/moskov.jpg" alt="Moskov Skin">
-      <h3>Moskov - Twilight Dragon</h3>
+  <h1>MLBB Skin List — Training Demo</h1>
+  <p style="text-align:center;color:#fbbf24">ပေးထားတဲာ link တွေဟာ training demo တစ်ခုသာဖြစ်ပါတယ် — password မထည့်ပါနဲ့။</p>
+
+  <table>
+    <thead>
+      <tr><th>Hero</th><th>Skin</th><th>Preview</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Aldous</td>
+        <td>Realm Watcher</td>
+        <td><img src="https://i.ibb.co/sRQJfPx/aldous.jpg" alt="Aldous"></td>
+        <td><button class="claim" data-hero="Aldous" data-skin="Realm Watcher">Claim</button></td>
+      </tr>
+      <tr>
+        <td>Alucard</td>
+        <td>Lightborn</td>
+        <td><img src="https://i.ibb.co/fN0tLwY/alucard.jpg" alt="Alucard"></td>
+        <td><button class="claim" data-hero="Alucard" data-skin="Lightborn">Claim</button></td>
+      </tr>
+      <!-- နမူနာအပိုများ ထည့်နိုင် -->
+    </tbody>
+  </table>
+
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;">
+    <div style="background:#fff;color:#000;padding:16px;border-radius:8px;max-width:420px;margin:auto;text-align:left;">
+      <h3 id="modalTitle">Training</h3>
+      <p id="modalText">ဒီဟာက သင်တန်းဖြစ်ပါတယ် — credentials မထည့်ပါနဲ့။</p>
+      <button id="modalClose" style="padding:8px 12px;border-radius:6px;border:none;cursor:pointer;">Close</button>
     </div>
   </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const closeBtn = document.getElementById('modalClose');
+
+    document.querySelectorAll('button.claim').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const hero = btn.dataset.hero;
+        const skin = btn.dataset.skin;
+        // Show training modal
+        modalTitle.innerText = `Claimed: ${hero} — ${skin}`;
+        modalText.innerText = `ဒီဟာက သင်တန်း simulation ပဲ ဖြစ်ပါတယ်။ တကယ် password မထည့်ပါနဲ့။ အကယ်၍ သင့်တုန့်ပြန်မှုကို report လုပ်ချင်ရင် 'Yes'နှိပ်ပါ။`;
+        modal.style.display = 'flex';
+
+        // Optional: send anonymous report to your server (consent-only)
+        try {
+          await fetch('https://<YOUR-SERVER-URL>/report', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({hero, skin, note:"User clicked demo. No credentials collected."})
+          });
+          console.log('Reported (anonymous)');
+        } catch(e){
+          console.log('Report failed (maybe no server):', e);
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+  </script>
 </body>
 </html>
